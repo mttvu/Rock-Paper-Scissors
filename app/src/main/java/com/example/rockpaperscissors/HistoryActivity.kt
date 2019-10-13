@@ -38,8 +38,6 @@ class HistoryActivity : AppCompatActivity() {
         rvGameHistory.adapter = gameAdapter
         rvGameHistory.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
         getGameHistoryFromDatabase()
-
-
     }
 
     private fun getGameHistoryFromDatabase() {

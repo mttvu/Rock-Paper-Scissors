@@ -9,11 +9,12 @@
     tools:showIn="@layout/activity_rock_paper_scissors">
 
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@+id/btnPaper"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/tvStatistics">
 
         <TextView
             android:id="@+id/tvResult"
@@ -36,30 +37,32 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:id="@+id/ivUser"
-                    android:layout_width="match_parent"
-                    android:layout_height="83dp"
+                    android:id="@+id/ivComputer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
                     android:background="#009688"
                     app:srcCompat="@drawable/paper" />
 
                 <TextView
-                    android:id="@+id/tvYou"
+                    android:id="@+id/tvComputer"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="@string/you" />
+                    android:text="@string/computer"
+                    android:textSize="10sp" />
 
             </LinearLayout>
 
             <TextView
                 android:id="@+id/tvVersus"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:fontFamily="cursive"
+                android:fontFamily="serif"
                 android:gravity="center"
                 android:text="@string/vs"
-                android:textSize="72sp"
+                android:textSize="30sp"
                 android:textStyle="bold" />
 
             <LinearLayout
@@ -70,19 +73,20 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:id="@+id/ivComputer"
-                    android:layout_width="match_parent"
-                    android:layout_height="83dp"
+                    android:id="@+id/ivUser"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
                     android:background="#009688"
                     app:srcCompat="@drawable/paper" />
 
                 <TextView
-                    android:id="@+id/tvComputer"
+                    android:id="@+id/tvYou"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="@string/computer" />
-
+                    android:text="@string/you"
+                    android:textSize="10sp" />
             </LinearLayout>
         </LinearLayout>
 
@@ -91,22 +95,24 @@
     <ImageButton
         android:id="@+id/btnRock"
         android:layout_width="0dp"
-        android:layout_height="100dp"
+        android:layout_height="0dp"
         android:backgroundTint="#009688"
         android:scaleType="fitCenter"
         android:src="@drawable/rock"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="1.5:1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintWidth_percent="0.33" />
 
     <ImageButton
         android:id="@+id/btnPaper"
         android:layout_width="0dp"
-        android:layout_height="100dp"
+        android:layout_height="0dp"
         android:backgroundTint="#009688"
         android:scaleType="fitCenter"
         android:src="@drawable/paper"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="1.5:1"
         app:layout_constraintEnd_toStartOf="@+id/btnScissors"
         app:layout_constraintStart_toEndOf="@+id/btnRock"
         app:layout_constraintWidth_percent="0.33" />
@@ -114,11 +120,60 @@
     <ImageButton
         android:id="@+id/btnScissors"
         android:layout_width="0dp"
-        android:layout_height="100dp"
+        android:layout_height="0dp"
         android:backgroundTint="#009688"
         android:scaleType="fitCenter"
         android:src="@drawable/scissors"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="1.5:1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintWidth_percent="0.33" />
+
+    <TextView
+        android:id="@+id/tvWelcome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/welcome"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvInstructions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/instructions"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvWelcome" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="0dp"
+        android:layout_height="20dp"
+        android:padding="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvInstructions"
+        app:srcCompat="@color/colorPrimary" />
+
+    <TextView
+        android:id="@+id/tvStatisticsInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/statistics_info"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+    <TextView
+        android:id="@+id/tvStatistics"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvStatisticsInfo" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

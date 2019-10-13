@@ -24,6 +24,8 @@ class RockPaperScissorsActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var computerMove: Move
     private lateinit var userMove: Move
     private lateinit var result: Result
+    private val gameHistory = arrayListOf<Game>()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,7 +39,8 @@ class RockPaperScissorsActivity : AppCompatActivity(), View.OnClickListener {
         btnRock.setOnClickListener { onClick(btnRock) }
         btnPaper.setOnClickListener { onClick(btnPaper) }
         btnScissors.setOnClickListener { onClick(btnScissors) }
-
+        getGameHistoryFromDatabase()
+        setAllTimeStatistics()
     }
 
     override fun onClick(view: View) {
@@ -113,27 +116,60 @@ class RockPaperScissorsActivity : AppCompatActivity(), View.OnClickListener {
             withContext(Dispatchers.IO) {
                 gameRepository.insertGame(game)
             }
+            getGameHistoryFromDatabase()
 
         }
     }
 
     private fun updateView() {
-        tvResult.text = result.toString()
+        when (result) {
+            Result.WIN -> tvResult.text = resources.getString(R.string.you_win)
+            Result.LOSE -> tvResult.text = resources.getString(R.string.computer_win)
+            Result.DRAW -> tvResult.text = resources.getString(R.string.draw)
+
+        }
         ivUser.setImageDrawable(getImage(userMove))
         ivComputer.setImageDrawable(getImage(computerMove))
+        getGameHistoryFromDatabase()
+        setAllTimeStatistics()
 
     }
 
-    private fun getImage(move : Move): Drawable {
+    private fun setAllTimeStatistics() {
+        var win = 0
+        var lose = 0
+        var draw = 0
+        gameHistory.forEach {
+            when (it.result) {
+                Result.WIN -> win++
+                Result.LOSE -> lose++
+                Result.DRAW -> draw++
+            }
+        }
+        tvStatistics.text = getString(R.string.statistics, win, lose, draw)
+    }
+
+    private fun getGameHistoryFromDatabase() {
+        mainScope.launch {
+            val gameHistory = withContext(Dispatchers.IO) {
+                gameRepository.getAllGames()
+            }
+            this@RockPaperScissorsActivity.gameHistory.clear()
+            this@RockPaperScissorsActivity.gameHistory.addAll(gameHistory)
+        }
+    }
+
+    private fun getImage(move: Move): Drawable {
         return when (move) {
-            Move.ROCK -> resources.getDrawable(R.drawable.rock,null)
+            Move.ROCK -> resources.getDrawable(R.drawable.rock, null)
 
-            Move.PAPER -> resources.getDrawable(R.drawable.paper,null)
+            Move.PAPER -> resources.getDrawable(R.drawable.paper, null)
 
-            Move.SCISSORS -> resources.getDrawable(R.drawable.scissors,null)
+            Move.SCISSORS -> resources.getDrawable(R.drawable.scissors, null)
 
         }
     }
+
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.menu_main, menu)
