@@ -7,6 +7,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.ImageView
+import android.widget.TextView
 
 import kotlinx.android.synthetic.main.activity_rock_paper_scissors.*
 import kotlinx.android.synthetic.main.content_rock_paper_scissors.*
@@ -122,6 +124,10 @@ class RockPaperScissorsActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun updateView() {
+        var gameResult = findViewById<View>(R.id.gameResult)
+        var tvResult = gameResult.findViewById<TextView>(R.id.tvResult)
+        var ivUser = gameResult.findViewById<ImageView>(R.id.ivUser)
+        var ivComputer = gameResult.findViewById<ImageView>(R.id.ivComputer)
         when (result) {
             Result.WIN -> tvResult.text = resources.getString(R.string.you_win)
             Result.LOSE -> tvResult.text = resources.getString(R.string.computer_win)
