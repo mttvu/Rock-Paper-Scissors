@@ -47,6 +47,7 @@ class GameAdapter(private val games: List<Game>, val context: Context) :
         private val ivUser: ImageView = itemView.findViewById(R.id.ivUser)
         private val ivComputer: ImageView = itemView.findViewById(R.id.ivComputer)
 
+
         fun bind(game: Game) {
             when (game.result) {
                 Result.WIN -> tvResult.text = context.resources.getString(R.string.you_win)

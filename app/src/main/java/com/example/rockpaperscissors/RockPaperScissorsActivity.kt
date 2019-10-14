@@ -46,6 +46,7 @@ class RockPaperScissorsActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     override fun onClick(view: View) {
+        //set userMove based on button clicked
         when (view.id) {
             R.id.btnRock -> userMove = Move.ROCK
 
@@ -66,6 +67,7 @@ class RockPaperScissorsActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun setResult(uMove: Move, cMove: Move) {
+        //set result based on user and computer move
         when (uMove) {
             Move.ROCK -> {
                 result = when (cMove) {
@@ -102,6 +104,7 @@ class RockPaperScissorsActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun setComputerMove() {
+        //random move
         computerMove = Move.values().toList().shuffled().first()
 
     }
@@ -124,6 +127,9 @@ class RockPaperScissorsActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun updateView() {
+        //update view so the results of the game can be seen
+
+        //included view
         var gameResult = findViewById<View>(R.id.gameResult)
         var tvResult = gameResult.findViewById<TextView>(R.id.tvResult)
         var ivUser = gameResult.findViewById<ImageView>(R.id.ivUser)
@@ -145,6 +151,7 @@ class RockPaperScissorsActivity : AppCompatActivity(), View.OnClickListener {
         var win = 0
         var lose = 0
         var draw = 0
+        //count the numbers of win, lose, draw
         gameHistory.forEach {
             when (it.result) {
                 Result.WIN -> win++
@@ -152,6 +159,7 @@ class RockPaperScissorsActivity : AppCompatActivity(), View.OnClickListener {
                 Result.DRAW -> draw++
             }
         }
+        //update statistics textfield
         tvStatistics.text = getString(R.string.statistics, win, lose, draw)
     }
 
@@ -166,6 +174,7 @@ class RockPaperScissorsActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun getImage(move: Move): Drawable {
+        //get the corresponding image
         return when (move) {
             Move.ROCK -> resources.getDrawable(R.drawable.rock, null)
 
